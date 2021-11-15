@@ -13,12 +13,16 @@ const publicDirectoryPath = path.join(__dirname, '../public')
 // Setup static directory to serve
 app.use(express.static(publicDirectoryPath))
 
-let count = 0
-
 io.on('connection', (socket) => {
+    socket.broadcast.emit('message', 'A new user has arrived')
     console.log('New web socket connection')
-
-    socket.emit('countUpdated')
+    socket.emit('message', 'Welcome!')
+    socket.on('sendMessage', (msg) => {
+        io.emit('message', msg)
+    })
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user has left')
+    })
 })
 
 const port = process.env.PORT || 3000

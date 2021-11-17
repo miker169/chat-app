@@ -16,6 +16,7 @@
     "socket.io": "^4.3.2"
   },
   "devDependencies": {
+    "bad-words": "^3.0.4",
     "nodemon": "^2.0.15"
   }
 }
